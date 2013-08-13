@@ -9,7 +9,6 @@
   "author": "Mike Frey",
   "license": "MIT",
   "dependencies": {
-    "glob": "~3.2.6",
     "async": "~0.2.9",
     "concat-stream": "~1.0.0",
     "through": "~2.3.4"
