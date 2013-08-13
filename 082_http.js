@@ -1,7 +1,7 @@
-console.log('JSON UPLOADS!')
+console.log('SIMPLE SERVER')
 
 var http = require('http')
-var StringDecoder = require('string_decoder').StringDecoder
+var concat = require('concat-stream')
 
 // create a server
 var server = http.createServer(handleRequest)
@@ -15,19 +15,10 @@ server.listen(1337, function() {
 function handleRequest(req, res) {
   console.log('processing request')
 
-  var buffer
+  req.setEncoding('utf8')
 
-  // read some data
-  req.on('data', function(chunk) {
-    if (buffer) buffer = Buffer.concat([buffer, chunk])
-    else buffer = chunk
-  })
-
-  // no more data to read
-  req.on('end', function() {
-    var decoder = new StringDecoder('utf8')
-    var data = buffer && decoder.write(buffer) || ''
-
+  // concat will buffer all the data for us
+  var write = concat(function(data) {
     data = JSON.parse(data)
 
     // add a random ID as if we saved it to a database
@@ -37,10 +28,7 @@ function handleRequest(req, res) {
     res.statusCode = 200
     res.end(JSON.stringify(data)+'\n')
   })
+
+  // pipe the data through concat
+  req.pipe(write)
 }
-
-/*
-
-curl -H "Content-Type: application/json" -d '{"foo":"bar"}' http://localhost:1337/
-
-*/

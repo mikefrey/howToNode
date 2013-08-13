@@ -1,4 +1,4 @@
-console.log('USING MODULES')
+console.log('USING MODULES\n')
 
 // core modules or modules installed to node_modules directory
 var fs = require('fs')
