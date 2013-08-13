@@ -1,4 +1,4 @@
-console.log('CALLBACK HELL/CHRISTMAS TREE OF DEATH')
+console.log('CALLBACK HELL/CHRISTMAS TREE OF DEATH\n')
 
 console.log('this file doesn\'t actually run')
 process.exit(0)

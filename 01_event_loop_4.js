@@ -1,15 +1,20 @@
 console.log('NODE USES AN EVENT LOOP\n')
 
-var fs = require('fs')
-var glob = require('glob')
+var http = require('http')
 
-glob('*.js', function(err, files) {
+var urls = [
+  'http://nodejs.org',
+  'http://www.npmjs.org',
+  'http://www.google.com',
+  'http://www.node.mn'
+]
 
-  files.forEach(function(f) {
-    // read a file asynchronously
-    fs.readFile(f, 'utf8', function(err, data) {
-      console.log('Length:', data.length, f)
-    })
+var c = urls.length
+urls.forEach(function(url, i) {
+  http.get(url, function(res) {
+    console.log(i+':', url, res.statusCode)
+    if (--c == 0) process.exit()
   })
-
+  console.log(i+':', url)
 })
+console.log('')
