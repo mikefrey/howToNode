@@ -32,3 +32,9 @@ function handleRequest(req, res) {
   // pipe the data through concat
   req.pipe(write)
 }
+
+/*
+
+curl -H "Content-Type: application/json" -d '{"foo":"bar"}' http://localhost:1337/
+
+*/
